@@ -4,6 +4,8 @@ import cors from 'cors'
 import compression from 'compression'
 import bodyParser from 'body-parser'
 
+import router from './router.js'
+
 // Create object from the express module
 const server = express()
 
@@ -17,7 +19,7 @@ server.use(compression())
 server.use(bodyParser.json())
 
 // Server routes
-server.get('/', (req, res) => res.send('App is working!'))
+server.use(router)
 
 // Server listens on the designated port
 server.listen(
