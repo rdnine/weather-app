@@ -1,0 +1,19 @@
+{
+  "name": "weather-app-server",
+  "version": "1.0.0",
+  "description": "Weather App Server side",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdnine/weather-app.git"
+  },
+  "author": "Rafael Duarte <rafael@rdnine.dev>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rdnine/weather-app/issues"
+  },
+  "homepage": "https://github.com/rdnine/weather-app#readme"
+}
