@@ -1,7 +1,10 @@
 import express from 'express'
 import config from 'config'
+import cors from 'cors'
 
-const server = express();
+const server = express()
+
+server.use(cors())
 
 server.get('/', (req, res) => res.send('App is working!'))
 
