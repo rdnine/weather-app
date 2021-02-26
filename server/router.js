@@ -6,6 +6,6 @@ const router = express();
 
 router.get('/', (req, res) => res.send('App is working!'))
 
-router.get('/api/v1/weather/city', get)
+router.get('/api/v1/weather/city/:name', get)
 
 export default router
