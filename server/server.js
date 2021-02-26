@@ -4,6 +4,7 @@ import cors from 'cors'
 import compression from 'compression'
 import bodyParser from 'body-parser'
 
+import logger from './middleware/logger.js'
 import router from './router.js'
 
 // Create object from the express module
@@ -17,6 +18,9 @@ server.use(compression())
 
 // Parse incoming request to json
 server.use(bodyParser.json())
+
+// Log requests to output file
+server.use(logger)
 
 // Server routes
 server.use(router)
