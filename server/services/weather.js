@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from 'config'
+import moment from 'moment'
 
 let responseObj = {
   message: 'error'
@@ -25,8 +26,8 @@ export const getWeather = (req, res) => {
           icon: response.data.weather[0].icon,
         },
         dates: {
-          sunrise: response.data.sys.sunrise,
-          sunset: response.data.sys.sunset
+          sunrise: moment.unix(response.data.sys.sunrise).format('HH:mm'),
+          sunset: moment.unix(response.data.sys.sunset).format('HH:mm')
         }
       }
     }
