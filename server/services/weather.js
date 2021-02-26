@@ -26,8 +26,8 @@ export const getWeather = (req, res) => {
           icon: response.data.weather[0].icon,
         },
         dates: {
-          sunrise: moment.unix(response.data.sys.sunrise).format('HH:mm'),
-          sunset: moment.unix(response.data.sys.sunset).format('HH:mm')
+          sunrise: moment.unix(response.data.sys.sunrise).format('HH:mm'), // Convert unix timestamp to time
+          sunset: moment.unix(response.data.sys.sunset).format('HH:mm') // Convert unix timestamp to time
         }
       }
     }
