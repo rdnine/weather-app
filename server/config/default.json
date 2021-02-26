@@ -1,5 +1,9 @@
 {
   "server": {
     "port": 8081
+  },
+  "api": {
+    "endpoint": "https://api.openweathermap.org/data/2.5/weather",
+    "key": "0383486b6de23fd95999ac591b4e7f4c"
   }
 }
