@@ -1,11 +1,14 @@
 import express from 'express'
-import { getWeather } from './services/weather.js'
+import web from './routes/web/index.js'
+import api from './routes/api/index.js'
 
 // Express object instance
-const router = express();
+const router = express()
 
-router.get('/', (req, res) => res.send('App is working!'))
+// Web Routes
+router.use('/', web)
 
-router.get('/api/v1/weather/city/:name', getWeather)
+// Api routes
+router.use('/api', api)
 
 export default router
