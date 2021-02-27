@@ -51,7 +51,7 @@ export const getCities = (req, res) => {
     .get(
       `${config.get('api.endpoint')}/find?q=${
         req.params.name
-      }&appid=${config.get('api.key')}`
+      }&appid=${config.get('api.key')}&units=metric`
     )
     .then((response) => {
       if (response.status === 200) {
