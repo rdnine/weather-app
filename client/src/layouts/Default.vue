@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="overflow-x-hidden h-screen w-screen flex flex-col">
     <navbar />
-    <main>
+    <main class="flex flex-1 bg-blue-500">
       <router-view v-slot="{ Component }">
         <transition name="fade">
           <component :is="Component" />
