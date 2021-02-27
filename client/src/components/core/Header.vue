@@ -7,13 +7,8 @@
             <div class="flex-shrink-0 flex items-center">
               <img class="block h-8 w-auto" src="@/assets/logo.png" alt="Logo" />
                 <span class="ml-5">
-                  <h1 class="text-white uppercase"><strong>Weather App</strong></h1>
+                  <h1 class="text-white uppercase"><a href="/"><strong>Weather App</strong></a></h1>
                 </span>
-            </div>
-            <div class="hidden sm:block sm:ml-6">
-              <div class="flex space-x-4">
-
-              </div>
             </div>
           </div>
           <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
