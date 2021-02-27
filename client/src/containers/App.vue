@@ -8,7 +8,7 @@ import { defineComponent, defineAsyncComponent } from 'vue'
 export default defineComponent({
   name: 'App',
   components: {
-    Default: defineAsyncComponent(() => import('@/layouts/Default.vue')),
+    default: defineAsyncComponent(() => import('@/layouts/Default.vue')),
   },
   computed: {
     layout() {
