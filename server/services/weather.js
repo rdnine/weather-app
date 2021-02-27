@@ -6,11 +6,11 @@ let responseObj = {
   message: 'error'
 }
 
+// Gets weather information of a city (param)
 export const getWeather = (req, res) => {
-
   // Get request to openweathermaps api - Current weather endpoint
   axios.get(
-    `${config.get('api.endpoint')}?q=${req.params.name}&appid=${config.get('api.key')}&units=metric`
+    `${config.get('api.endpoint')}/weather?q=${req.params.name}&appid=${config.get('api.key')}&units=metric`
   ).then(response => {
     // If request was successful
     if(response.status === 200) {
@@ -41,4 +41,34 @@ export const getWeather = (req, res) => {
     res.send(responseObj)
   })
 
+}
+
+// Gets a list of cities based on search query (param)
+export const getCities = (req, res) => {
+  
+  // Get request to openweathermaps api - Current weather endpoint
+  axios
+    .get(
+      `${config.get('api.endpoint')}/find?q=${
+        req.params.name
+      }&appid=${config.get('api.key')}&units=metric`
+    )
+    .then((response) => {
+      if (response.status === 200) {
+        responseObj.message = 'success'
+
+        responseObj.data = {
+          count: response.data.count,
+          list: response.data.list,
+        }
+      }
+
+      // Send built responsive object or error message depending on status
+      res.send(responseObj)
+    })
+    .catch((err) => {
+      // 404 - No city found. Sends error message and header to FE
+      responseObj.message = 'not found'
+      res.send(responseObj)
+    })
 }
