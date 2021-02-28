@@ -17,6 +17,7 @@ export const getWeather = (req, res) => {
       responseObj.message = 'success'
 
       responseObj.data = {
+        id: response.data.id,
         name: response.data.name,
         country: response.data.sys.country,
         weather: {
@@ -27,8 +28,8 @@ export const getWeather = (req, res) => {
         },
         dates: {
           sunrise: moment.unix(response.data.sys.sunrise).format('HH:mm'), // Convert unix timestamp to time
-          sunset: moment.unix(response.data.sys.sunset).format('HH:mm') // Convert unix timestamp to time
-        }
+          sunset: moment.unix(response.data.sys.sunset).format('HH:mm'), // Convert unix timestamp to time
+        },
       }
     }
     
