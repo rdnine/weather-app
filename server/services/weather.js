@@ -39,6 +39,7 @@ export const getWeather = (req, res) => {
   }).catch(err => {
     // 404 - No city found. Sends error message and header to FE
     responseObj.message = 'not found'
+    responseObj.data = {}
     res.send(responseObj)
   })
 
@@ -51,7 +52,6 @@ export const getWeatherByID = (req, res) => {
     `${config.get('api.endpoint')}/weather?id=${req.params.id}&appid=${config.get('api.key')}&units=metric`
   ).then(response => {
     // If request was successful
-    console.log(response)
     if(response.status === 200) {
       responseObj.message = 'success'
 
@@ -78,6 +78,7 @@ export const getWeatherByID = (req, res) => {
   }).catch(err => {
     // 404 - No city found. Sends error message and header to FE
     responseObj.message = 'not found'
+    responseObj.data = {}
     res.send(responseObj)
   })
 
@@ -110,6 +111,7 @@ export const getCities = (req, res) => {
     .catch((err) => {
       // 404 - No city found. Sends error message and header to FE
       responseObj.message = 'not found'
+      responseObj.data = {}
       res.send(responseObj)
     })
 }
