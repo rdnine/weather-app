@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 
 import PrimeVue from 'primevue/config'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -15,6 +17,9 @@ const app = createApp(App)
 
 app.use(VueAxios, axios)
 app.use(PrimeVue)
+
+app.component('DataTable', DataTable)
+app.component('Column', Column)
 
 app.use(store)
 app.use(router)
