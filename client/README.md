@@ -1,24 +1,33 @@
-# client
+# Weather App - Client Side
+**Weather App UI**
 
-## Project setup
+---
+## Tech Stack
+- Vue 3
+- Vuex 4
+- Axios
+- PrimeVUE
+- ChartJS
+
+---
+## Install
+
+**Considering you are already inside the "client" folder**
+
 ```
-npm install
+  $ npm install
+  $ npm run build
 ```
 
-### Compiles and hot-reloads for development
+## Run
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+  $ npm run start
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+---
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Requirements
+
+This app requires the web server on the project folder "server"
+
+**First follow the given instructions there**
