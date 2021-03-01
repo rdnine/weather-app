@@ -33,10 +33,26 @@ If the installation was successful, you should be able to run the following comm
     6.14.11
 
 ---
-
-## App Structure
-
+## How to run this app?
 ```
-|-- client
-|-- server
+  $ git clone https://github.com/rdnine/weather-app.git
+  OR
+  Download the Latest Stable Release of the project and unzip
+
+  Server Side
+    $ cd server
+    $ npm install
+    $ npm run start
+  
+  Client side
+    $ cd client
+    $ npm install
+    $ npm run build
+    $ npm run start
+
+  You should now have a server (nodejs + express) running on https://localhost:8081/
+  and the application being served on https://localhost:8080/
 ```
+
+**Addicionaly you can look for the standalone documentation on each part**
+
