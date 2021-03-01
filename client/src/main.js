@@ -4,6 +4,12 @@ import router from './router'
 import store from './store'
 
 import PrimeVue from 'primevue/config'
+
+import 'primevue/resources/themes/saga-blue/theme.css'
+import 'primevue/resources/primevue.min.css'
+import 'primeicons/primeicons.css'
+
+import ToastService from 'primevue/toastservice'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 
@@ -17,6 +23,7 @@ const app = createApp(App)
 
 app.use(VueAxios, axios)
 app.use(PrimeVue)
+app.use(ToastService)
 
 app.component('DataTable', DataTable)
 app.component('Column', Column)
