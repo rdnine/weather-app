@@ -1,18 +1,23 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 
-import weather from './modules/weather.store'
+import weather from './modules/weather.store' // Load weather module
 
 export default createStore({
   state: {
     ping: false
   },
+  getters: {
+    ping: state => state.ping,
+  },
   mutations: {
+    // Update ping state
     UPDATE_PING(state, value) {
       state.ping = value
     }
   },
   actions: {
+    // Check response from server
     pingApi({ commit }) {
       axios
         .get('http://localhost:8081/')

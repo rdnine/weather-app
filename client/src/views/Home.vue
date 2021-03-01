@@ -8,6 +8,8 @@
           cities weather data
         </h2>
       </div>
+
+      <!-- Search Wrapper -->
       <div class="max-w-3xl w-full text-center relative mb-12">
         <div class="bg-white shadow p-4 flex">
           <span class="w-auto flex justify-end items-center text-gray-500 p-2">
@@ -53,15 +55,16 @@
             </ul>
           </div>
         </transition>
-
       </div>
+      <!-- EOF Search Wrapper -->
 
+      <!-- Cities Cards -->
       <transition name="fade">
         <div class="max-w-3xl w-full text-center relative mb-5" v-if="hasCities">
           <h3 class="text-white text-2xl">Your <strong>Cities</strong></h3>
           <div class="mt-7 mb-3">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4">
-              <!-- City Block -->
+              <!-- City Card -->
               <div class="relative bg-white shadow p-4 flex flex-col items-start" v-for="city in list" :key="city.id">
                 <div class="flex mb-5">
                   <p class="text-gray-600 text-2xl font-medium">
@@ -94,13 +97,15 @@
                   </button>
                 </div>
               </div>
-              <!-- EOF City Block -->
+              <!-- EOF City Card -->
               
             </div>
           </div>
         </div>
       </transition>
+      <!-- EOF Cities Cards -->
 
+      <!-- Chart -->
       <transition name="fade">
         <div class="max-w-3xl w-full relative mb-5" v-if="hasCities">
           <div class="bg-white shadow p-4" >
@@ -108,7 +113,9 @@
           </div>
         </div>
       </transition>
+      <!-- EOF Chart -->
 
+      <!-- Table -->
       <transition name="fade">
         <div class="max-w-3xl w-full relative mb-5" v-if="hasCities">
           <div class="bg-white shadow p-4 flex">
@@ -131,9 +138,10 @@
           </div>
         </div>
       </transition>
+      <!-- EOF Table -->
 
+      <!-- Toast Component -->
       <Toast position="bottom-right" />
-      
     </div>
   </div>
 </template>
@@ -155,32 +163,21 @@ export default {
   setup() {
     const store = useStore()
     const toast = useToast()
+
+    onMounted(() => store.dispatch('pingApi')) // check for server response
+    const ping = computed(() => store.getters.ping)
     
+    /* CITIES LIST LOGIC */
     const city = ref('')
-    const barChart = ref(null)
-
-    watch(store.getters.chartData, () => {
-      if(barChart.value) {
-        barChart.value.refresh()
-      }
-    })
-
-    const chartData = {
-      labels: store.getters.chartLabels,
-      datasets: [
-        {
-          label: 'Temperature',
-          backgroundColor: '#f87171',
-          data: store.getters.chartData
-        }
-      ],
-    }
-
-    onMounted(() => store.dispatch('pingApi'))
-
     const isDisabled = computed(() => city.value.length > 0)
 
-    const getCities = () => store.dispatch('getCities', city)
+    const getCities = () => {
+      if(ping.value !== false) {
+        store.dispatch('getCities', city)
+      } else {
+        toast.add({severity:'error', summary: 'Bad Server Connection', detail:'No response from the service', life:3000});
+      }
+    }
     const results = computed(() => store.getters.results)
     const hasResults = computed(() => store.getters.hasResults)
     const clear = () => {
@@ -204,6 +201,29 @@ export default {
         toast.add({severity:'error', summary: 'OOps', detail:'City has already been added', life:3000});
       }
     })
+
+    /* EOF CITIES LIST LOGIC */
+
+    /* CHART LOGIC */
+    const barChart = ref(null)
+
+    watch(store.getters.chartData, () => {
+      if(barChart.value) {
+        barChart.value.refresh()
+      }
+    })
+
+    const chartData = {
+      labels: store.getters.chartLabels,
+      datasets: [
+        {
+          label: 'Temperature',
+          backgroundColor: '#f87171',
+          data: store.getters.chartData
+        }
+      ],
+    }
+    /* EOF CHART LOGIC */
 
     return {
       city,
