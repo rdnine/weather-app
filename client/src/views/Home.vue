@@ -93,21 +93,75 @@
           </div>
         </div>
       </div>
+
+      <div class="max-w-3xl w-full relative mb-5" v-if="hasCities">
+        <div class="bg-white shadow p-4" >
+          <Chart type="bar" :data="chartData" ref="barChart"/>
+        </div>
+      </div>
+
+      <div class="max-w-3xl w-full relative mb-5" v-if="hasCities">
+        <div class="bg-white shadow p-4 flex">
+          <DataTable
+            :value="list"
+            rresponsiveLayout="stack"
+            breakpoint="960px"
+          >
+            <Column field="name" header="City" sortable></Column>
+            <Column field="country" header="Country" sortable>
+              <template #body="{data}">
+                <img :src="`https://openweathermap.org/images/flags/${data.country.toLowerCase()}.png`" alt="Flag" width="15" height="10" class="inline ml-2"/>
+              </template>
+            </Column>
+            <Column field="weather.temperature" header="Temperature" sortable ></Column>
+            <Column field="dates.sunrise" header="Sunrise" sortable></Column>
+            <Column field="dates.sunset" header="Sunset" sortable></Column>
+          </DataTable>
+
+        </div>
+      </div>
+      
     </div>
   </div>
 </template>
 
 <script>
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
+
+import Chart from 'primevue/chart'
 
 export default {
   name: 'Home',
+  components: {
+    Chart
+  },
   setup() {
     const store = useStore()
     const city = ref('')
 
-    onMounted(store.dispatch('pingApi'))
+    const data = ref(store)
+
+    const barChart = ref(null)
+
+    watch(store.getters.chartData, () => {
+      if(barChart.value) {
+        barChart.value.refresh()
+      }
+    })
+
+    const chartData = {
+      labels: data.value.getters.chartLabels,
+      datasets: [
+        {
+          label: 'Temperature',
+          backgroundColor: '#f87171',
+          data: data.value.getters.chartData
+        }
+      ],
+    }
+
+    onMounted(() => store.dispatch('pingApi'))
 
     const isDisabled = computed(() => city.value.length > 0)
 
@@ -138,9 +192,10 @@ export default {
       addCity,
       removeCity,
       list,
-      tableList,
       hasCities,
-      isDisabled
+      isDisabled,
+      chartData,
+      barChart
     }
   }
 }

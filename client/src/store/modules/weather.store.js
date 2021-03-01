@@ -1,25 +1,48 @@
 import axios from 'axios'
 
-const state = {
+import { reactive } from 'vue'
+
+const state = reactive({
   cities: {
     list: [],
     results: []
   },
   hasResults: false,
-  hasCities: false
-}
+  hasCities: false,
+  chart: {
+    labels: [],
+    data: []
+  }
+})
+
 const getters = {
   results: state => state.cities.results,
   list: state => state.cities.list,
   hasCities: state => state.hasCities,
-  hasResults: state => state.hasResults
+  hasResults: state => state.hasResults,
+  chartLabels: state => state.chart.labels,
+  chartData: state => state.chart.data
 }
 
 const mutations = {
   ADD_TO_LIST(state, value) {
-    state.cities.list.push(value)
+
+    if(!state.cities.list.some(el => el.id === value.id)) {
+      state.cities.list.push(value)
+      state.chart.labels.push(value.name)
+      state.chart.data.push(value.weather.temperature)
+    }
   },
   REMOVE_FROM_LIST(state, value) {
+    // Get object info before filter
+    const obj = state.cities.list.find(el => el.id === value)
+    
+    // Find index in chart labels
+    const chartLabelIndex = state.chart.labels.findIndex(el => el === obj.name)
+
+    state.chart.labels.splice(chartLabelIndex, 1) // remove label based on index
+    state.chart.data.splice(chartLabelIndex, 1) // remove data based on index
+
     const newList = state.cities.list.filter(el => el.id !== value)
 
     if(!newList.length > 0) {
