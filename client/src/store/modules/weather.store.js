@@ -9,6 +9,7 @@ const state = reactive({
   },
   hasResults: false,
   hasCities: false,
+  hasCity: false,
   chart: {
     labels: [],
     data: []
@@ -19,6 +20,7 @@ const getters = {
   results: state => state.cities.results,
   list: state => state.cities.list,
   hasCities: state => state.hasCities,
+  hasCity: state => state.hasCity,
   hasResults: state => state.hasResults,
   chartLabels: state => state.chart.labels,
   chartData: state => state.chart.data
@@ -31,6 +33,9 @@ const mutations = {
       state.cities.list.push(value)
       state.chart.labels.push(value.name)
       state.chart.data.push(value.weather.temperature)
+      state.hasCity = false
+    } else {
+      state.hasCity = true
     }
   },
   REMOVE_FROM_LIST(state, value) {
